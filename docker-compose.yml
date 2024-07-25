@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: mysql:8.3
+    image: mysql:8.2
     container_name: db
     restart: unless-stopped
     env_file: .env
@@ -38,6 +38,7 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - wordpress:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
@@ -52,7 +53,7 @@ services:
     volumes:
       - certbot-etc:/etc/letsencrypt
       - wordpress:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email prince@cultivar1.com --agree-tos --no-eff-email --staging -d cultivar1.com -d www.cultivar1.com
+    command: certonly --webroot --webroot-path=/var/www/html --email prince@cultivar1.com --agree-tos --no-eff-email --force-renewal -d cultivar1.com -d www.cultivar1.com
 volumes:
   certbot-etc:
   wordpress:

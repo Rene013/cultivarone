@@ -1,0 +1,33 @@
+/*
+ * Globals
+ */
+
+.themeSwitcher_button{
+	margin-top: 10px;
+}
+/*
+*	QR-CODE
+*/
+
+div.qrcode{
+	margin: 0;
+	padding: 0;
+}
+
+/* rows */
+div.qrcode > div {
+	margin: 0;
+	padding: 0;
+	height: 10px;
+}
+
+/* modules */
+div.qrcode > div > span {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+}
+
+div.qrcode > div > span {
+	background-color: #ccc;
+}

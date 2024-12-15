@@ -1,0 +1,124 @@
+/************************* START Body ************************/
+html{
+	height:100%;
+}
+body{
+	min-width:280px;
+}
+.justify-content-center {
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+}
+/************************* START Social top & bottom links ************************/
+.soc-med {
+  text-align: right;
+}
+.soc-med-but {
+  margin: 23px 5px 12px;
+}
+@media only screen and (min-width: 768px) and (max-width: 799px) {
+  .soc-med {
+    margin-right: 15px;
+  }
+}
+.soc-med-but {
+  margin: 23px 5px 12px;
+}
+a.soc-med-but {
+  text-decoration: none;
+  color: #3d9970;
+}
+a.soc-med-but:hover {
+  color: #337859;
+}
+.soc-med .soc-med:first-child {
+  margin-left: 0px;
+}
+.soc-med .soc-med:last-child {
+  margin-right: 0px;
+}
+.soc-med .top-links {
+  text-align: right;
+}
+@media only screen and (min-width: 768px) and (max-width: 799px) {
+  .top-links {
+    margin-right: 15px;
+  }
+}
+.top-links {
+  text-align: right;
+}
+.top-links a {
+  color: #3d9970;
+  text-decoration: none;
+  margin-left: 10px;
+}
+.top-links a:last-child {
+  margin-left: 0px;
+}
+.top-links a:hover {
+  color: #337859;
+}
+.top-link-but {
+  margin: 0px 10px;
+}
+.footer-soc-med {
+  display: block;
+  width: 235px;
+  margin: 0px auto;
+}
+.footer-soc-med .soc-med-but {
+  margin: 10px 5px;
+}
+.footer-soc-med .soc-med-but:first-child {
+  margin-left: 0px;
+}
+.footer-soc-med .soc-med-but:last-child {
+  margin-right: 0px;
+}
+/************************  END Social media top and bottom links ************************/
+
+/************************  Pagination  ************************/
+.pagination>li>a, .pagination>li>span{
+	color:#3d9970;
+}
+.pagination>li>a:hover, .pagination>li>span{
+	color:#3d9970;
+}
+/************************  /Pagination ************************/
+
+/************************     START iList Logo *****************/
+@media only screen and (min-width: 768px) {
+	.h-logo {
+		height: 31px;
+		margin-top: 20px;
+	}
+	form.searchform{
+		width:60%;
+		margin-left:auto;
+		margin-right:auto;
+	}
+
+}
+@media only screen and (max-width: 767){
+	.nav-masthead{
+	   display:none;
+	}
+	.fa-2x{
+		font-size: 1em;
+	}
+}
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .h-logo {
+    height: 21px;
+    margin-top: 10px;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .h-logo {
+    height: 17px;
+    margin-top: 7px;
+  }
+}
+
+/************************     START Ilist Logo *****************/

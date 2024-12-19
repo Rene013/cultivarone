@@ -2,7 +2,7 @@
 // gets the total number of URLS in the table.
 
 function get_total_urls(){
-	$mysqli = new mysqli('localhost', 'root', '','url_shortener');
+	$mysqli = new mysqli('db', 'root', 'HenearkrxeRn0!#','url_shortner');
 	if($mysqli -> connect_errno){
 		echo "Failed  to connect to MySQL : ". $mysqli -> connect_error;
 		exit();
@@ -13,7 +13,7 @@ function get_total_urls(){
 }
 // gets the url for the given key
 function get_url($url_key){
-	$mysqli = new mysqli('localhost', 'root', '','url_shortener');
+	$mysqli = new mysqli('db', 'root', 'HenearkrxeRn0!#','url_shortner');
 	if($mysqli -> connect_errno){
 		echo "Failed  to connect to MySQL : ". $mysqli -> connect_error;
 		exit();
@@ -26,7 +26,7 @@ function get_url($url_key){
 }
 // gets the url if exist
 function get_url_key($url){
-	$mysqli = new mysqli('localhost', 'root', '','url_shortener');
+	$mysqli = new mysqli('db', 'root', 'HenearkrxeRn0!#','url_shortner');
 	if($mysqli -> connect_errno){
 		echo "Failed  to connect to MySQL : ". $mysqli -> connect_error;
 		exit();
@@ -40,7 +40,8 @@ function get_url_key($url){
 // adds a new url to the table, returning its key
 
 function shorten_url($url){
-	$mysqli = new mysqli('localhost', 'root', '','url_shortener');
+
+	$mysqli = new mysqli('db', 'root', 'HenearkrxeRn0!#','url_shortner');
 	if($mysqli -> connect_errno){
 		echo "Failed  to connect to MySQL : ". $mysqli -> connect_error;
 		exit();
@@ -48,6 +49,7 @@ function shorten_url($url){
 	$url = $mysqli->real_escape_string($url);
 	$sql = "SELECT `url_key` FROM `urls` WHERE `url` = '{$url}'";
 	$result = $mysqli->query($sql);
+
 	if($result->num_rows == 1){
 		throw new Exception("URL already exist");
 		return $result->free_result();

@@ -2,7 +2,7 @@
 
 // Logs the request form given IP address.
 function log_api_request($ip){
-	$mysqli = new mysqli('localhost', 'root', '','url_shortener');
+	$mysqli = new mysqli('db', 'root', 'HenearkrxeRn0!#','url_shortner');
 	if($mysqli -> connect_errno){
 		echo "Failed  to connect to MySQL : ". $mysqli -> connect_error;
 		exit();
@@ -15,7 +15,7 @@ function log_api_request($ip){
 }
 //Gets the total number requests that have been made today.
 function get_todays_api_requests($ip){
-	$mysqli = new mysqli('localhost', 'root', '','url_shortener');
+	$mysqli = new mysqli('db', 'root', 'HenearkrxeRn0!#','url_shortner');
 	if($mysqli -> connect_errno){
 		echo "Failed  to connect to MySQL : ". $mysqli -> connect_error;
 		exit();

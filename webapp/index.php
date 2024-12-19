@@ -11,6 +11,7 @@
 			$errors[] .= 'The URL you provided is not a valid';
 		}
 		if (empty($errors)){
+
 			try{
 				$url_key = Shorten_url($_POST['url']);
 			} catch(Exception $e){

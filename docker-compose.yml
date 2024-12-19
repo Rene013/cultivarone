@@ -1,27 +1,43 @@
-version: '3.6'
-
+version: '3.7'
 services:
-  db:
-    image: mysql:8.2
-    container_name: db
-    restart: unless-stopped
-    env_file: .env
+  webserver:
+    container_name: cultivar_server
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - 80:8080
+      - 443:8443
     environment:
-      - MYSQL_DATABASE:${MYSQL_DATABASE}
-      - MYSQL_ROOT_PASSWORD:${MYSQL_PASSWORD}
-      - MYSQL_USER:${MYSQL_USER}
-      - MYSQL_PASSWORD:${MYSQL_PASSWORD}
+      SSL_MODE: "full"
+      SSL_PRIVATE_KEY_FILE: "/etc/letsencrypt/live/cultivar1.com/privkey.pem;"
+      SSL_CERTIFICATE_FILE: "/etc/letsencrypt/live/cultivar1.com/fullchain.pem;"
     volumes:
-      - ./dbdata:/var/lib/mysql
-    command: '--default-authentication-plugin=mysql_native_password'
+      - ./webapp:/var/www/html/public
+      - ./certs/:/etc/letsencrypt/live/cultivar1.com/
+#      - ./vhost/:/etc/apache2/sites-available/
     networks:
-      - app-network  
-  phpmyadmin:
+      - app-network
     depends_on:
       - db
+  db:
+    image: mysql:8.3
+    container_name: cultivar_database
+    volumes:
+      - ./database/mysql:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+  phpmyadmin:
+    container_name: cultivar_phpmyadmin
     image: phpmyadmin:5.2.1
-    container_name: phpmyadmin
-    restart: unless-stopped
+    restart: always
     ports:
       - "8181:80"
     environment:
@@ -29,21 +45,15 @@ services:
       - PMA_PORT=3306
     networks:
       - app-network
-  webserver:
     depends_on:
-      - phpmyadmin
       - db
-    image: nginx:1.27.0-alpine
-    container_name: webserver
-    restart: unless-stopped
-    ports:
-      - "80:80"
+  sql-runner:
+    image: mysql:8.3
+    command: ["mysql", "-h", "mysql", "-u", "root", "HenearkrxeRn0!#", "url_shortner"]
     volumes:
-      - ./webapp:/var/www/html
-      - ./nginx-conf:/etc/nginx/conf.d
-      - ./certbot-etc:/etc/letsencrypt
-    networks:
-      - app-network
+      - ./sql-scripts:/var/www/html/public/sql-scripts
+    depends_on:
+      - db
   certbot:
     depends_on:
       - webserver
@@ -51,13 +61,12 @@ services:
     container_name: certbot
     volumes:
       - ./certbot-etc:/etc/letsencrypt
-      - ./webapp:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email prince@cultivar1.com --agree-tos --no-eff-email --force-renewal -d cultivar1.com -d www.cultivar1.com
+      - ./webapp:/var/www/html/public
+    command: certonly --webroot --webroot-path=/var/www/html/public --email prince@cultivar1.com --agree-tos --no-eff-email --force-renewal -d cultivar1.com -d www.cultivar1.com
 volumes:
   certbot-etc:
   webapp:
   dbdata:
-
 networks:
   app-network:
     driver: bridge
